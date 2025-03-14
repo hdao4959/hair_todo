@@ -1,12 +1,13 @@
 import { cyan, deepOrange, orange, teal } from '@mui/material/colors';
 import { experimental_extendTheme as extendTheme, createTheme } from '@mui/material/styles';
 // Tạo theme với hỗ trợ colorSchemes
-export const NavBarHeight = "50px";
-export const BoardBarHeight = "40px";
+const NavBarHeight = "50px";
+const BoardBarHeight = "40px";
 const theme = createTheme({
   appCustom:{
     navBarHeight: NavBarHeight,
     boardBarHeight: BoardBarHeight,
+    boardContentHeight:  `calc(100vh - ${NavBarHeight} - ${BoardBarHeight})`
   },
   colorSchemes: {
     light: {

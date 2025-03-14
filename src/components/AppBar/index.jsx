@@ -10,12 +10,12 @@ import AddIcon from '@mui/icons-material/Add';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Account from './Account';
-import { NavBarHeight } from '~/theme';
+import theme from '~/theme';
 const AppBar = () => {
   return (
     <Box sx={{
       width: "100%",
-      height: NavBarHeight,
+      height: theme.appCustom.navBarHeight,
       padding: 1,
       display: "flex",
       alignItems: 'center',
@@ -30,16 +30,22 @@ const AppBar = () => {
         gap: 1,
         alignItems: 'center'
       }}>
-          <AppsIcon />
-          <img width="80px" src={TrelloLogo} alt="" />
-      
-          <Workspaces />
-          <Recent />
-          <Starred />
-          <Templates />
+        <AppsIcon />
+        <img width="80px" src={TrelloLogo} alt="" />
+
+        <Workspaces />
+        <Recent />
+        <Starred />
+        <Templates />
 
 
-        <Button variant='outlined' sx={{ backgroundColor: "primary.dark", color: 'primary.light' }}>
+        <Button variant='outlined' 
+        sx={{ 
+          color: 'primary.light' ,
+          "&:hover": {
+            backgroundColor: 'primary.main'
+          }
+        }}>
           <AddIcon />
         </Button>
       </Box>

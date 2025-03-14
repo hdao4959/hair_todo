@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import theme from "../theme"
-
+import { mockData } from '~/apis/mock-data';
+const {board} = mockData;
 const BoardBar = () => {
   return (
     <Box sx={{ 
@@ -10,9 +11,11 @@ const BoardBar = () => {
       display: "flex", 
       alignItems: 'center', 
       color: "primary.light",
-      backgroundColor: "primary.main"
+      backgroundColor: "primary.main",
+      backgroundColor: "gray",
+      color: 'white'
        }}>
-        Board Bar
+        {board?.description}
     </Box>
   )
 }
