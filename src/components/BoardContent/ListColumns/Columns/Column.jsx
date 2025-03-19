@@ -7,6 +7,11 @@ import { sortedArray } from '~/utils/sortedArray';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import AddIcon from '@mui/icons-material/Add';
+import {
+  horizontalListSortingStrategy,
+  arrayMove,
+  SortableContext,
+} from '@dnd-kit/sortable';
 function Column({ column }) {
 
   const {
@@ -76,7 +81,10 @@ function Column({ column }) {
           }
         }}>
           {/* Danh sách các thẻ trong column */}
-          <ListCards cards={sortedArray(column?.cards, column?.cardOrderIds, '_id')} />
+          {/* <SortableContext items={arrayColumns}
+            strategy={horizontalListSortingStrategy}> */}
+            <ListCards cards={sortedArray(column?.cards, column?.cardOrderIds, '_id')} />
+          {/* </SortableContext> */}
         </Box>
         {/* Button add new card */}
         <Button sx={{

@@ -17,6 +17,7 @@ const BoardContent = () => {
       height: theme.appCustom.boardContentHeight,
       display: "flex",
       alignItems: 'center',
+      // mt: 2,
       gap: 1,
       px: 1,
       // pt: 1,

@@ -1,5 +1,4 @@
-import { Badge, Tooltip } from '@mui/material';
-import { Card as MuiCard } from '@mui/material';
+import {Badge, Tooltip, Card as MuiCard } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import GroupIcon from '@mui/icons-material/Group';
 import ForumIcon from '@mui/icons-material/Forum';
 import AttachmentIcon from '@mui/icons-material/Attachment';
-
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 const showCardAction = () => {
   if (!!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length) {
     return 1;
@@ -16,9 +16,29 @@ const showCardAction = () => {
   return 0;
 }
 const Card = ({ card }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: card._id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
     <>
-      <MuiCard sx={{ mb: 1 }}>
+      <MuiCard ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        className={`${isDragging ? 'isDragging' : ''}`}
+        key={card._id}
+         sx={{ mb: 1 }}>
         {card?.cover &&
           <CardMedia
             sx={{ height: 140 }}
@@ -27,7 +47,7 @@ const Card = ({ card }) => {
           />
         }
 
-        <CardContent sx={{paddingLeft: 1, paddingBottom: 0, paddingRight: 1}}>
+        <CardContent sx={{ paddingLeft: 1, paddingBottom: 0, paddingRight: 1 }}>
           <Typography variant="p" color="text.secondary">
             {card?.title}
           </Typography>
