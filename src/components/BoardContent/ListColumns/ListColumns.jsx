@@ -1,59 +1,36 @@
 import Column from './Columns/Column';
-import { DndContext, MouseSensor, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
-
 import {
   horizontalListSortingStrategy,
-  arrayMove,
   SortableContext,
 } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 
+const ListColumns = ({ columns, arrayColumns }) => {
 
+  // state cho mảng các column được sắp xếp theo trình tự của db
+  const [arrayColumnIds, setArrayColumnIds] = useState(columns.map(column => column._id));
 
-
-const ListColumns = ({ columns }) => {
-  const [arrayColumns, setArrayColumns] = useState([]);
-
+  // Trường hợp trật tự các column thay đổi đc truyền từ prop cha xuống -> set lại thứ tự sắp xếp của các column
   useEffect(() => {
     if (columns?.length) {
-      setArrayColumns(columns.map(column => column._id))
-
+      setArrayColumnIds(arrayColumns)
     }
-  }, [columns])
-
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (!over) {
-      return
-    }
-
-    if (active.id !== over.id) {
-      setArrayColumns((arrayColumns) => {
-        const oldIndex = arrayColumns.indexOf(active.id)
-        const newIndex = arrayColumns.indexOf(over.id);
-        return arrayMove(arrayColumns, oldIndex, newIndex)
-      })
-    }
-  }
-
-  const sensors = useSensors(
-    useSensor(MouseSensor, { activationConstraint: { tolerance: 5 } }),
-    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 500, tolerance: 5 } })
-  );
+  }, arrayColumns)
 
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <SortableContext items={arrayColumns}
-        strategy={horizontalListSortingStrategy}>
 
-        {arrayColumns?.map((column_id) => {
-          const column = columns.find(c => c._id == column_id);
-          return column ? < Column key={column._id} column={column} /> : null;
-        })}
-      </SortableContext>
+    <SortableContext items={arrayColumnIds}
+      strategy={horizontalListSortingStrategy}>
 
-    </DndContext>
+      {arrayColumnIds?.map((column_id) => {
+        const column = columns.find(c => c._id == column_id);
+        return column ?
+          < Column key={column._id} column={column} />
+
+          : null;
+      })}
+    </SortableContext>
+
   )
 }
 

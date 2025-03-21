@@ -1,4 +1,4 @@
-import {Badge, Tooltip, Card as MuiCard } from '@mui/material';
+import { Badge, Tooltip, Card as MuiCard } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -23,22 +23,22 @@ const Card = ({ card }) => {
     transform,
     transition,
     isDragging
-  } = useSortable({ id: card._id });
+  } = useSortable({ id: card._id, data: card });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
+  const cardStyle = {
+    transform: CSS.Translate.toString(transform),
     transition,
   };
 
   return (
     <>
-      <MuiCard ref={setNodeRef}
-        style={style}
-        {...attributes}
-        {...listeners}
-        className={`${isDragging ? 'isDragging' : ''}`}
-        key={card._id}
-         sx={{ mb: 1 }}>
+      <MuiCard ref={setNodeRef} style={cardStyle} {...attributes} {...listeners}
+        className={`${isDragging ? 'isDragging' : ''}`} key={card._id}
+        sx={{
+          cursor: 'pointer',
+          mb: 1,
+          overflow: 'unset'
+        }}>
         {card?.cover &&
           <CardMedia
             sx={{ height: 140 }}

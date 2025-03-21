@@ -7,52 +7,50 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import theme from '~/theme';
 
 const ListCards = ({ cards }) => {
 
-  const handleDragEndForCard = (event) => {
-    console.log(cards);
-
-    // const { active, over } = event;
-    // if (!over) {
-    //   return
-    // }
-
-    // if (active.id !== over.id) {
-    //   setArrayColumns((arrayColumns) => {
-    //     const oldIndex = arrayColumns.indexOf(active.id)
-    //     const newIndex = arrayColumns.indexOf(over.id);
-    //     return arrayMove(arrayColumns, oldIndex, newIndex)
-    //   })
-    // }
-  }
-  const sensors = useSensors(
-    useSensor(MouseSensor, { activationConstraint: { tolerance: 5 } }),
-    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 500, tolerance: 5 } })
-  );
   return (
 
-    // <DndContext
-    //    sensors={sensors}
-    //   onDragEnd={handleDragEndForCard}>
-
-      <SortableContext items={cards.map(c => c._id)}
-        strategy={verticalListSortingStrategy}
-      >
-        <Box sx={{
-          paddingX: 0.5
-        }}>
-          {cards.map((card) => {
-            return (
+    <Box sx={{
+      paddingX: 0.5,
+      // overflowY: 'hidden',
+      // overflowX: 'hidden'
+    }}>
+      <SortableContext items={cards?.map(c => c._id)} strategy={verticalListSortingStrategy}>
+        {/* <Box sx={{
+          // px: 0.5
+        }}> */}
+          <Box sx={{
+            px: 0.5,
+            maxHeight: `calc(${theme.appCustom.boardContentHeight} - 100px)`,
+            overflowY: 'auto',
+            // Custom thanh scrollbar bên phải column
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-track": {
+              borderRadius: '4px',
+              backgroundColor: "#f1f1f1",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#a7a7a0",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "#8f8f89",
+            }
+          }}>
+            
+            {cards.map((card) => (
               <Card key={card._id} id={card._id} card={card} />
-
             )
-          })}
-
-        </Box>
+            )}
+          </Box>
+          {/* </Box> */}
       </SortableContext>
-    // </DndContext>
+    </Box>
   )
 }
 
