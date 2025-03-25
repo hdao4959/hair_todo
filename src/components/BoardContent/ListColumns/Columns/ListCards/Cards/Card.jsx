@@ -41,7 +41,7 @@ const Card = ({ card }) => {
         }}>
         {card?.cover &&
           <CardMedia
-            sx={{ height: 140 }}
+            sx={{ height: 150 }}
             image={card?.cover}
             title={card?.title}
           />

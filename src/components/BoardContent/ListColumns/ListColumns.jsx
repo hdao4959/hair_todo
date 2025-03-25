@@ -6,9 +6,9 @@ import {
 import { useEffect, useState } from 'react';
 
 const ListColumns = ({ columns, arrayColumns }) => {
-
+  
   // state cho mảng các column được sắp xếp theo trình tự của db
-  const [arrayColumnIds, setArrayColumnIds] = useState(columns.map(column => column._id));
+  const [arrayColumnIds, setArrayColumnIds] = useState(arrayColumns);
 
   // Trường hợp trật tự các column thay đổi đc truyền từ prop cha xuống -> set lại thứ tự sắp xếp của các column
   useEffect(() => {

@@ -22,6 +22,7 @@ const AppBar = () => {
       justifyContent: "space-between",
       overflowX: 'auto',
       overflowY: 'hidden',
+     
       gap: 1
       // backgroundColor: "primary.light" 
     }}>
